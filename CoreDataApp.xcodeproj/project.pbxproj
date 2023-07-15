@@ -14,6 +14,7 @@
 		43206C902A61A4AC003CBB34 /* CoreDataApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 43206C8E2A61A4AC003CBB34 /* CoreDataApp.xcdatamodeld */; };
 		43206C922A61A4AC003CBB34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43206C912A61A4AC003CBB34 /* Assets.xcassets */; };
 		43206C952A61A4AC003CBB34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43206C932A61A4AC003CBB34 /* LaunchScreen.storyboard */; };
+		43206C9D2A62F2F3003CBB34 /* UIColor+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43206C9C2A62F2F3003CBB34 /* UIColor+theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		43206C912A61A4AC003CBB34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43206C942A61A4AC003CBB34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43206C962A61A4AC003CBB34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43206C9C2A62F2F3003CBB34 /* UIColor+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+theme.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				43206C932A61A4AC003CBB34 /* LaunchScreen.storyboard */,
 				43206C962A61A4AC003CBB34 /* Info.plist */,
 				43206C8E2A61A4AC003CBB34 /* CoreDataApp.xcdatamodeld */,
+				43206C9C2A62F2F3003CBB34 /* UIColor+theme.swift */,
 			);
 			path = CoreDataApp;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				43206C902A61A4AC003CBB34 /* CoreDataApp.xcdatamodeld in Sources */,
 				43206C8A2A61A4AC003CBB34 /* ViewController.swift in Sources */,
 				43206C862A61A4AC003CBB34 /* AppDelegate.swift in Sources */,
+				43206C9D2A62F2F3003CBB34 /* UIColor+theme.swift in Sources */,
 				43206C882A61A4AC003CBB34 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
