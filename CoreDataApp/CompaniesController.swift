@@ -8,18 +8,25 @@
 import UIKit
 
 
-class CompaniesController: UITableViewController {
+class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
+    func didAddCompany(company: Company) {
+        companies.append(company)
+        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
     
     
-    let companies = [Company(name: "Apple", founded: Date()),
+    
+    var companies = [Company(name: "Apple", founded: Date()),
                      Company(name: "Microsoft", founded: Date()),
                      Company(name: "Tesla", founded: Date()   )
     ]
     
+//
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
         view.backgroundColor = .white
         navigationItem.title = "Companies"
 //        tableView.tableFooterView = UIView()
@@ -32,6 +39,7 @@ class CompaniesController: UITableViewController {
     
     @objc func handleAddCompany() {
         let createCompanyController = CreateCompanyController()
+        createCompanyController.delegate = self
         let navController = CustomNavController(rootViewController: createCompanyController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)

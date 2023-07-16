@@ -30,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let companiesController = CompaniesController()
         let navController = CustomNavController(rootViewController: companiesController)
+                
         UINavigationBarAppearance().backgroundColor = .red
         window.rootViewController = navController
         window.makeKeyAndVisible()
