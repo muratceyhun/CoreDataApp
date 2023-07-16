@@ -11,7 +11,7 @@ import UIKit
 class CustomNavController: UINavigationController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 }
 
@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let companiesController = ViewController()
+        let companiesController = CompaniesController()
         let navController = CustomNavController(rootViewController: companiesController)
         UINavigationBarAppearance().backgroundColor = .red
         window.rootViewController = navController
