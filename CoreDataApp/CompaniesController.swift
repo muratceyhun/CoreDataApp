@@ -58,6 +58,38 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         present(navController, animated: true, completion: nil)
     }
     
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let company = self.companies[indexPath.item]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            
+            // Remove the company from tableView
+            
+            self.companies.remove(at: indexPath.item)
+            self.tableView.deleteRows(at: [indexPath], with: .top)
+
+            
+            // Delete the company from Core Data
+            print("try to delete \(company.name ?? "")")
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(company)
+            
+            do {
+                try context.save()
+            } catch let err {
+                print("Error ---> ", err)
+            }
+        }
+
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
+            print("Editing \(company.name ?? "")")
+        }
+        let actions = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return actions
+        
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .lightBlue
