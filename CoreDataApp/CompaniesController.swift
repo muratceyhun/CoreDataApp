@@ -6,27 +6,44 @@
 //
 
 import UIKit
+import CoreData
 
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
+    
+    var companies = [Company]()
+    
     func didAddCompany(company: Company) {
         companies.append(company)
         let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
-    
-    
-    var companies = [Company(name: "Apple", founded: Date()),
-                     Company(name: "Microsoft", founded: Date()),
-                     Company(name: "Tesla", founded: Date()   )
-    ]
-    
-//
-    
+    func fetchCompanies() {
+        
+        let persistentContainer = NSPersistentContainer(name: "CoreDataApp")
+        persistentContainer.loadPersistentStores { storeDescription, err in
+            if let err = err {
+                fatalError("Loading of store failed: \(err)")
+            }
+        }
+        let context = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Company >(entityName: "Company")
+        do {
+          let companies = try context.fetch(fetchRequest)
+            companies.forEach { company in
+                print(company.name ?? "")
+            }
+        } catch let err {
+            print("Failed to fetch  companies:", err)
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchCompanies()
         view.backgroundColor = .white
         navigationItem.title = "Companies"
 //        tableView.tableFooterView = UIView()
