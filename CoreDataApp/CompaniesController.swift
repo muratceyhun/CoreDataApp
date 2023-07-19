@@ -10,6 +10,13 @@ import CoreData
 
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
+    func didEditCompany(company: Company) {
+        let row = companies.firstIndex(of: company)
+        
+         let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
+    
     
     var companies = [Company]()
     
@@ -18,6 +25,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
+ 
     
     func fetchCompanies() {
       
@@ -67,7 +75,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
             // Remove the company from tableView
             
             self.companies.remove(at: indexPath.item)
-            self.tableView.deleteRows(at: [indexPath], with: .top)
+            self.tableView.deleteRows(at: [indexPath], with: .top )
 
             
             // Delete the company from Core Data
@@ -81,14 +89,26 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
                 print("Error ---> ", err)
             }
         }
+        
+        deleteAction.backgroundColor = .lightRed
 
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
             print("Editing \(company.name ?? "")")
+            let createCompanyVC = CreateCompanyController()
+            createCompanyVC.delegate = self
+            createCompanyVC.company = self.companies[indexPath.item]
+            let navController = UINavigationController(rootViewController: createCompanyVC)
+            navController.modalPresentationStyle = .fullScreen
+            self.present(navController, animated: true)
         }
+   
         let actions = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        editAction.backgroundColor = UIColor.darkBlue
         return actions
         
     }
+  
+
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
