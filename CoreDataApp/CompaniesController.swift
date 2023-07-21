@@ -10,7 +10,7 @@ import CoreData
 
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
-    func didEditCompany(company: Company) {
+     func didEditCompany(company: Company) {
         let row = companies.firstIndex(of: company)
         
          let reloadIndexPath = IndexPath(row: row!, section: 0)

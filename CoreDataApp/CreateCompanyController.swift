@@ -72,7 +72,7 @@ class CreateCompanyController: UIViewController {
             try context.save()
             guard let company = company else {return}
             dismiss(animated: true) {
-                self.delegate?.didEditCompany(company: company)
+                 self.delegate?.didEditCompany(company: company)
             }
         } catch let err {
             print("ERROR: EDIT", err)
