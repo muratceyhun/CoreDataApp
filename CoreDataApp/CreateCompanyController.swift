@@ -22,7 +22,17 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
             nameTextField.text = company?.name
             guard let foundedDate = company?.founded else {return}
             datePicker.date = foundedDate
+            guard let imageData = company?.imageData else {return}
+            companyImageView.image = UIImage(data: imageData)
+            setupCircularImageStyle()
         }
+    }
+    
+    fileprivate func setupCircularImageStyle() {
+        companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
+        companyImageView.clipsToBounds = true
+        companyImageView.layer.borderColor = UIColor.darkBlue.cgColor
+        companyImageView.layer.borderWidth = 2
     }
     
     var delegate: CreateCompanyControllerDelegate?
@@ -31,6 +41,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
        let imageView = UIImageView(image: UIImage(named: "select_photo_empty"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFill
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddPhoto)))
         return imageView
     }()
@@ -52,7 +63,8 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         } else if let editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             companyImageView.image = editedImage
         }
-        dismiss(animated: true)       
+        setupCircularImageStyle()
+        dismiss(animated: true)
     }
     
     let nameLabel: UILabel = {
@@ -107,6 +119,11 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         let context = CoreDataManager.shared.persistentContainer.viewContext
         self.company?.name = nameTextField.text
         self.company?.founded = datePicker.date
+        
+        guard let companyImage = companyImageView.image else {return}
+        let imageData = companyImage.jpegData(compressionQuality: 0.8)
+        self.company?.imageData = imageData
+        
         do {
             try context.save()
             guard let company = company else {return}
@@ -125,8 +142,14 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        
+        
         company.setValue(nameTextField.text, forKey: "name")
         company.setValue(datePicker.date, forKey: "founded")
+        
+        guard let companyImage = companyImageView.image else {return}
+        let imageData = companyImage.jpegData(compressionQuality: 0.8)
+        company.setValue(imageData, forKey: "imageData")
         
         // Perform the save
         
@@ -161,8 +184,8 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         view.addSubview(companyImageView)
         companyImageView.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor, constant: 24).isActive = true
         companyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        companyImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        companyImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        companyImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        companyImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
 
         
         

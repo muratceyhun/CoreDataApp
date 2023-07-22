@@ -143,6 +143,10 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         }
          cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        cell.imageView?.image = UIImage(named: "select_photo_empty")
+        if let imageData = company.imageData {
+            cell.imageView?.image = UIImage(data: imageData)
+        }
         return cell
     }
     
