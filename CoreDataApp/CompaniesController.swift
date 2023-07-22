@@ -129,8 +129,19 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
         cell.backgroundColor = .tealColor
         let company = companies[indexPath.item]
-        cell.textLabel?.text = company.name
-        cell.textLabel?.textColor = .white
+        if let companyName = company.name, let foundedDate = company.founded {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            dateFormatter.locale = Locale(identifier: "EN")
+            let dateString = dateFormatter.string(from: foundedDate)
+//            let locale = Locale(identifier: "EN")
+//            foundedDate.description(with: locale)
+            cell.textLabel?.text = "\(companyName) | Founded: \(dateString)"
+        } else {
+            cell.textLabel?.text = company.name
+        }
+         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
