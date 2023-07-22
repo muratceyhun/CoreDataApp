@@ -7,13 +7,20 @@
 
 import UIKit
 
-
 class CustomNavController: UINavigationController {
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 }
+
+extension UINavigationController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
+
+
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

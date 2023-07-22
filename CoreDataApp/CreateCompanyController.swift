@@ -8,13 +8,14 @@
 import UIKit
 import CoreData
 
+
 protocol CreateCompanyControllerDelegate {
     func didAddCompany(company: Company)
     func didEditCompany(company: Company)
 }
 
 
-class CreateCompanyController: UIViewController {
+class CreateCompanyController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var company: Company? {
         didSet {
@@ -25,6 +26,34 @@ class CreateCompanyController: UIViewController {
     }
     
     var delegate: CreateCompanyControllerDelegate?
+    
+    lazy var companyImageView: UIImageView = {
+       let imageView = UIImageView(image: UIImage(named: "select_photo_empty"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddPhoto)))
+        return imageView
+    }()
+    
+    @objc func handleAddPhoto() {
+        let imagePickerController = UIImagePickerController()
+//        imagePickerController.modalPresentationStyle = .fullScreen
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        if let originalImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            companyImageView.image = originalImage
+
+        } else if let editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            companyImageView.image = editedImage
+        }
+        dismiss(animated: true)       
+    }
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -71,9 +100,6 @@ class CreateCompanyController: UIViewController {
         } else {
             saveCompanyChanges()
         }
-        
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-
     }
     
     fileprivate func saveCompanyChanges() {
@@ -130,11 +156,18 @@ class CreateCompanyController: UIViewController {
         lightBlueBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         lightBlueBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 416).isActive = true
         
+        view.addSubview(companyImageView)
+        companyImageView.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor, constant: 24).isActive = true
+        companyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        companyImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        companyImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
 
+        
+        
         view.addSubview(nameLabel)
-        nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: companyImageView.bottomAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 130).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
