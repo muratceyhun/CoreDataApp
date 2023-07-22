@@ -42,11 +42,34 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
             print("Failed to fetch  companies:", err)
         }
     }
+    
+    fileprivate func editResetbutton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(handleReset))
+    }
+    
+    @objc func handleReset() {
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest() )
+        do {
+            try context.execute(batchDeleteRequest)
+            var indexPathsToRemove = [IndexPath]()
+            
+            for (index, _) in companies.enumerated() {
+                let indexPath = IndexPath(row: index, section: 0)
+                indexPathsToRemove.append(indexPath)
+            }
+            companies.removeAll()
+            tableView.deleteRows(at: indexPathsToRemove, with: .left)
+        } catch let err {
+            print("ERROR:", err)
+        }
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        editResetbutton()
         fetchCompanies()
         view.backgroundColor = .white
         navigationItem.title = "Companies"
@@ -124,6 +147,20 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         return companies.count
     }
     
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No company available..."
+        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return companies.count == 0 ? 150 : 0
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
