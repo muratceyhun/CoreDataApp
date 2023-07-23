@@ -13,7 +13,7 @@ class EmployeesController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .yellow
+        tableView.backgroundColor = .darkBlue
         navigationItem.title = company?.name
 
         createAddButton(selector: #selector(handleAddEmployee))

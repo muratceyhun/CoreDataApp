@@ -167,15 +167,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
     
     func setupUI() {
         
-        let lightBlueBackgroundView = UIView()
-        lightBlueBackgroundView.backgroundColor = .lightBlue
-        lightBlueBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lightBlueBackgroundView)
-        
-        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        lightBlueBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 416).isActive = true
+       let lightBlueBackgroundView = createLightBlueBackgroundView(height: 450)
         
         view.addSubview(companyImageView)
         companyImageView.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor, constant: 24).isActive = true
