@@ -18,6 +18,7 @@
 		43206C9F2A63C565003CBB34 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43206C9E2A63C565003CBB34 /* Company.swift */; };
 		43206CA12A63C7C4003CBB34 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43206CA02A63C7C4003CBB34 /* CreateCompanyController.swift */; };
 		432B36D52A684A6200C9894C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432B36D42A684A6200C9894C /* CoreDataManager.swift */; };
+		434C85392A6D11F0001E073E /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434C85382A6D11F0001E073E /* CompanyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		43206C9E2A63C565003CBB34 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		43206CA02A63C7C4003CBB34 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		432B36D42A684A6200C9894C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		434C85382A6D11F0001E073E /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				43206C872A61A4AC003CBB34 /* SceneDelegate.swift */,
 				43206C892A61A4AC003CBB34 /* CompaniesController.swift */,
 				43206CA02A63C7C4003CBB34 /* CreateCompanyController.swift */,
+				434C85382A6D11F0001E073E /* CompanyCell.swift */,
 				43206C8B2A61A4AC003CBB34 /* Main.storyboard */,
 				43206C912A61A4AC003CBB34 /* Assets.xcassets */,
 				43206C932A61A4AC003CBB34 /* LaunchScreen.storyboard */,
@@ -157,6 +160,7 @@
 				43206C8A2A61A4AC003CBB34 /* CompaniesController.swift in Sources */,
 				43206C862A61A4AC003CBB34 /* AppDelegate.swift in Sources */,
 				432B36D52A684A6200C9894C /* CoreDataManager.swift in Sources */,
+				434C85392A6D11F0001E073E /* CompanyCell.swift in Sources */,
 				43206CA12A63C7C4003CBB34 /* CreateCompanyController.swift in Sources */,
 				43206C9D2A62F2F3003CBB34 /* UIColor+theme.swift in Sources */,
 				43206C882A61A4AC003CBB34 /* SceneDelegate.swift in Sources */,

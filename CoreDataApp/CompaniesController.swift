@@ -78,7 +78,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellID")
     }
     
     @objc func handleAddCompany() {
@@ -163,28 +163,34 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
-        cell.backgroundColor = .tealColor
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CompanyCell
+        
         let company = companies[indexPath.item]
-        if let companyName = company.name, let foundedDate = company.founded {
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM dd, yyyy"
-            dateFormatter.locale = Locale(identifier: "EN")
-            let dateString = dateFormatter.string(from: foundedDate)
-//            let locale = Locale(identifier: "EN")
-//            foundedDate.description(with: locale)
-            cell.textLabel?.text = "\(companyName) | Founded: \(dateString)"
-        } else {
-            cell.textLabel?.text = company.name
-        }
-         cell.textLabel?.textColor = .white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.imageView?.image = UIImage(named: "select_photo_empty")
-        if let imageData = company.imageData {
-            cell.imageView?.image = UIImage(data: imageData)
-        }
+        cell.company = company
+        
+//        if let companyName = company.name, let foundedDate = company.founded {
+//            
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "MMM dd, yyyy"
+//            dateFormatter.locale = Locale(identifier: "EN")
+//            let dateString = dateFormatter.string(from: foundedDate)
+////            let locale = Locale(identifier: "EN")
+////            foundedDate.description(with: locale)
+//            cell.textLabel?.text = "\(companyName) | Founded: \(dateString)"
+//        } else {
+//            cell.textLabel?.text = company.name
+//        }
+//         cell.textLabel?.textColor = .white
+//        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//        cell.imageView?.image = UIImage(named: "select_photo_empty")
+//        if let imageData = company.imageData {
+//            cell.imageView?.image = UIImage(data: imageData)
+//        }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
     }
     
 }
