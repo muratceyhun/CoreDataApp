@@ -8,6 +8,15 @@
 import UIKit
 
 extension CompaniesController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let employeesController = EmployeesController()
+        let company = companies[indexPath.row]
+        employeesController.company = company
+        navigationController?.pushViewController(employeesController, animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let company = self.companies[indexPath.item]
@@ -85,7 +94,6 @@ extension CompaniesController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CompanyCell
-        
         let company = companies[indexPath.item]
         cell.company = company
 

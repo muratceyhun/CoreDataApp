@@ -46,7 +46,7 @@ class CompaniesController: UITableViewController {
         tableView.backgroundColor = .darkBlue
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
+        createAddButton(selector: #selector(handleAddCompany))
         tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellID")
     }
     
@@ -56,11 +56,7 @@ class CompaniesController: UITableViewController {
         let navController = CustomNavController(rootViewController: createCompanyController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
-    }
-    
- 
-
-    
+    }  
 }
 
 

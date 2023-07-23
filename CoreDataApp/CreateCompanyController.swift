@@ -100,7 +100,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         view.backgroundColor = .darkBlue
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        createCancelButton()
         setupUI()
 
     }
@@ -163,11 +163,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
             print("Saving to core data error", err)
         }
     }
-    
-    @objc func handleCancel() {
-        
-        dismiss(animated: true)
-    }
+
     
     func setupUI() {
         
