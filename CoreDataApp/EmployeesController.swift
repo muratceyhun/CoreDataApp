@@ -6,16 +6,41 @@
 //
 
 import UIKit
+import CoreData
 
-class EmployeesController: UITableViewController {
+class EmployeesController: UITableViewController, CreateEmployeeControllerDelegate {
+    func didAddEmployee(employee: Employee) {
+        employees.append(employee)
+        tableView.reloadData()
+    }
+    
+    
+    
+    
+    let cellID = "cellID"
     
     var company: Company?
     
+    var employees = [Employee]()
+    
+    
+    func fetchEmployees() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let request = NSFetchRequest<Employee>(entityName: "Employee")
+        do {
+            let employees = try context.fetch(request)
+            self.employees = employees
+        } catch let err {
+            print("ERROR", err)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         tableView.backgroundColor = .darkBlue
         navigationItem.title = company?.name
-
+        fetchEmployees()
         createAddButton(selector: #selector(handleAddEmployee))
         
         
@@ -24,8 +49,28 @@ class EmployeesController: UITableViewController {
     @objc func handleAddEmployee() {
         let createEmployeeController = CreateEmployeeController()
         let navController = UINavigationController(rootViewController: createEmployeeController)
+        createEmployeeController.delegate = self
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return employees.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        let employee = employees[indexPath.row]
+        cell.backgroundColor = .tealColor
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        cell.textLabel?.text = employee.name
+        return cell
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
