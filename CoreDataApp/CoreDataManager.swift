@@ -41,6 +41,13 @@ class CoreDataManager {
         // create an employee
         let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context) as! Employee
         employee.setValue(employeeName, forKey: "name")
+        
+        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation
+        employeeInformation.taxID = "518"
+//        employeeInformation.setValue("518", forKey: "taxID")
+        employee.employeeInformation = employeeInformation
+        
+        
         do {
             try context.save()
             return (employee, nil)

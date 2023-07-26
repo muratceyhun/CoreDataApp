@@ -64,7 +64,11 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         cell.backgroundColor = .tealColor
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.textLabel?.text = employee.name
+        if let taxID = employee.employeeInformation?.taxID {
+            cell.textLabel?.text = "\(employee.name ?? "") - taxID = \(taxID)"
+        } else {
+            cell.textLabel?.text = employee.name
+        }
         return cell
         
     }
