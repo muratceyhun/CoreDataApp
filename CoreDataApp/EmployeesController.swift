@@ -25,14 +25,20 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
     
     
     func fetchEmployees() {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let request = NSFetchRequest<Employee>(entityName: "Employee")
-        do {
-            let employees = try context.fetch(request)
-            self.employees = employees
-        } catch let err {
-            print("ERROR", err)
-        }
+        
+        
+        guard let employees = company?.employees?.allObjects as? [Employee] else {return}
+        self.employees = employees
+        
+        
+//        let context = CoreDataManager.shared.persistentContainer.viewContext
+//        let request = NSFetchRequest<Employee>(entityName: "Employee")
+//        do {
+//            let employees = try context.fetch(request)
+//            self.employees = employees
+//        } catch let err {
+//            print("ERROR", err)
+//        }
     }
     
     override func viewDidLoad() {
@@ -50,6 +56,7 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         let createEmployeeController = CreateEmployeeController()
         let navController = UINavigationController(rootViewController: createEmployeeController)
         createEmployeeController.delegate = self
+        createEmployeeController.company = company
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
     }
