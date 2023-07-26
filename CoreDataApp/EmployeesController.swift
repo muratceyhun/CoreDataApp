@@ -71,8 +71,19 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         cell.backgroundColor = .tealColor
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        if let taxID = employee.employeeInformation?.taxID {
-            cell.textLabel?.text = "\(employee.name ?? "") - taxID = \(taxID)"
+//        if let taxID = employee.employeeInformation?.taxID {
+//            cell.textLabel?.text = "\(employee.name ?? "") - taxID = \(taxID)"
+//        } else {
+//            cell.textLabel?.text = employee.name
+//        }
+        
+        if let birthday = employee.employeeInformation?.birthday {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd,yyyy"
+            dateFormatter.locale = Locale(identifier: "EN")
+            let dateString = dateFormatter.string(from: birthday)
+            cell.textLabel?.text = "\(employee.name ?? "") - \(dateString)"
+            
         } else {
             cell.textLabel?.text = employee.name
         }
