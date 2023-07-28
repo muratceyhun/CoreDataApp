@@ -109,13 +109,13 @@ class CreateEmployeeController: UIViewController {
 
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 130).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(nameTextField)
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 20).isActive = true
+        nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 16).isActive = true
         nameTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
         nameTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         

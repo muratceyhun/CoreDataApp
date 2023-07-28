@@ -75,9 +75,12 @@ extension CompaniesController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
+        self.tableView.sectionHeaderTopPadding = 0
         view.backgroundColor = .lightBlue
         return view
     }
+    
+
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
