@@ -38,20 +38,47 @@ class CompaniesController: UITableViewController {
     
     @objc func doWork() {
 //            let context = CoreDataManager.shared.persistentContainer.viewContext
-        CoreDataManager.shared.persistentContainer.
             CoreDataManager.shared.persistentContainer.performBackgroundTask { backgroundContext in
-                (0...200000).forEach { number in
+                (0...5).forEach { number in
                     print(number)
                     let company = Company(context: backgroundContext)
                     company.name = String(number)
                 }
                 do {
                     try backgroundContext.save()
+                    DispatchQueue.main.async {
+                        self.companies = CoreDataManager.shared.fetchCompanies()
+                        self.tableView.reloadData()
+                    }
                  } catch let err {
                     print("Error", err)
                 }
             }
 
+    }
+    
+    @objc func doUpdates() {
+        
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { backgroundContext in
+            let request: NSFetchRequest<Company> = Company.fetchRequest() 
+            do {
+                let companies = try backgroundContext.fetch(request)
+                companies.forEach { company in
+                    guard let name = company.name else {return}
+                    print(name)
+                    company.name = "C:\(name)"
+                    try? backgroundContext.save()
+                    
+                    DispatchQueue.main.async {
+                        CoreDataManager.shared.persistentContainer.viewContext.reset()
+                        self.companies = CoreDataManager.shared.fetchCompanies()
+                        self.tableView.reloadData()
+                    }
+                }
+            } catch let err {
+                print("ERROR", err)
+            }
+        }
     }
 
     
@@ -59,7 +86,7 @@ class CompaniesController: UITableViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItems = [
             UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-            UIBarButtonItem(title: "Do Work", style: .plain, target: self, action: #selector(doWork))
+            UIBarButtonItem(title: "Do Updates", style: .plain, target: self, action: #selector(doUpdates))
         ]
 //        editResetbutton()
         self.companies = CoreDataManager.shared.fetchCompanies()
