@@ -18,13 +18,13 @@ class CompaniesController: UITableViewController {
     }
     
     @objc func handleReset() {
-        
+        print("Resetttt")
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest() )
         do {
             try context.execute(batchDeleteRequest)
             var indexPathsToRemove = [IndexPath]()
-            
+
             for (index, _) in companies.enumerated() {
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathsToRemove.append(indexPath)
@@ -35,11 +35,33 @@ class CompaniesController: UITableViewController {
             print("ERROR:", err)
         }
     }
+    
+    @objc func doWork() {
+//            let context = CoreDataManager.shared.persistentContainer.viewContext
+        CoreDataManager.shared.persistentContainer.
+            CoreDataManager.shared.persistentContainer.performBackgroundTask { backgroundContext in
+                (0...200000).forEach { number in
+                    print(number)
+                    let company = Company(context: backgroundContext)
+                    company.name = String(number)
+                }
+                do {
+                    try backgroundContext.save()
+                 } catch let err {
+                    print("Error", err)
+                }
+            }
+
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editResetbutton()
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
+            UIBarButtonItem(title: "Do Work", style: .plain, target: self, action: #selector(doWork))
+        ]
+//        editResetbutton()
         self.companies = CoreDataManager.shared.fetchCompanies()
         view.backgroundColor = .white
         navigationItem.title = "Companies"
