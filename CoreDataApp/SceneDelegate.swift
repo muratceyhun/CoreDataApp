@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let companiesController = CompaniesController()
+        let companiesController = CompaniesAutoUpdateController()
         let navController = CustomNavController(rootViewController: companiesController)
                 
         UINavigationBarAppearance().backgroundColor = .red
