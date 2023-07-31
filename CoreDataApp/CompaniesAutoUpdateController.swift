@@ -78,7 +78,7 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
     @objc func handleDelete() {
         
         let request: NSFetchRequest<Company> = Company.fetchRequest()
-        request.predicate = NSPredicate(format: "name CONTAINS %@", "p")
+//        request.predicate = NSPredicate(format: "name CONTAINS %@", "p")
 
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let companiesWithB = try? context.fetch(request)
@@ -102,9 +102,13 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
         ]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAdd))
         tableView.register(CompanyCell.self, forCellReuseIdentifier: cellID)
-        fetchedResultController.fetchedObjects?.forEach({ company in
-            print(company.name ?? "")
-        })
+//        fetchedResultController.fetchedObjects?.forEach({ company in
+//            print(company.name ?? "")
+//        })
+        
+        
+        Service.shared.downloadCompaniesFromServer()
+        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
