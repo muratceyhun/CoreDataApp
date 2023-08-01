@@ -107,8 +107,18 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
 //        })
         
         
-        Service.shared.downloadCompaniesFromServer()
         
+        let refreshController = UIRefreshControl()
+        
+        refreshController.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        self.refreshControl = refreshController
+        refreshController.tintColor = .white
+        
+    }
+    
+    @objc func handleRefresh() {
+        Service.shared.downloadCompaniesFromServer()
+        refreshControl?.endRefreshing()
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
