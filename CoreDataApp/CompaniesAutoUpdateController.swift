@@ -150,5 +150,12 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let company = fetchedResultController.object(at: indexPath)
+        let employeeController = EmployeesController()
+        employeeController.company = company
+        navigationController?.pushViewController(employeeController, animated: true)
+        
     }
+    
+
 }
