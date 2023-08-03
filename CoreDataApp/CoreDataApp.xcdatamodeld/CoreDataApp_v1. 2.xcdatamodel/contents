@@ -10,7 +10,7 @@
         <attribute name="founded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="numEmployees" attributeType="Integer 16" defaultValueString="150" usesScalarValueType="YES"/>
+        <attribute name="numEmployees" attributeType="String"/>
         <attribute name="officialName" attributeType="String" defaultValueString="NO OFFICIAL NAME"/>
         <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="company" inverseEntity="Employee"/>
     </entity>

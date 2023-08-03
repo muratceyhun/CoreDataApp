@@ -11,7 +11,7 @@ class CompanyCell: UITableViewCell {
     
     var company: Company? {
         didSet {
-            nameFoundedDateLabel.text = company?.name
+            nameFoundedDateLabel.text = "\(company?.name ?? "") \(company?.numEmployees ?? "")"
             guard let imageData = company?.imageData else {return}
             companyImageView.image = UIImage(data: imageData)
             
