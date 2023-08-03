@@ -156,10 +156,10 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
             dateFormatter.dateFormat = "MMM dd,yyyy"
             dateFormatter.locale = Locale(identifier: "EN")
             let dateString = dateFormatter.string(from: birthday)
-            cell.textLabel?.text = "\(employee.name ?? "") - \(dateString)"
+            cell.textLabel?.text = "\(employee.fullName ?? "") - \(dateString)"
             
         } else {
-            cell.textLabel?.text = employee.name
+            cell.textLabel?.text = employee.fullName
         }
         return cell
         

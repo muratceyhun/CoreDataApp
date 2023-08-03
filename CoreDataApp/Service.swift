@@ -57,7 +57,7 @@ class Service {
                         print("  \(JSONEmployee.name)")
                         
                         let employee = Employee(context: privateContext)
-                        employee.name = JSONEmployee.name
+                        employee.fullName = JSONEmployee.name
                         employee.type = JSONEmployee.type
                         
                         let employeeInformation = EmployeeInformation(context: privateContext)
